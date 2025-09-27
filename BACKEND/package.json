@@ -1,0 +1,19 @@
+{
+  "name": "backend-hackathon",
+  "version": "1.0.0",
+  "description": "Projeto dos alunos do 2°semestre de engenharia de software para o hackathon da unifacef 2025",
+  "main": "index.js",
+  "module": "commomjs",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@huggingface/inference": "^4.9.0",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.2",
+    "express": "^5.1.0",
+    "mysql": "^2.18.1"
+  }
+}

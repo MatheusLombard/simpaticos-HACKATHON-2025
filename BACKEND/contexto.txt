@@ -1,0 +1,49 @@
+Atualização Cadastral: O processo para alterar dados (como endereço ou dados pessoais) é iniciado pelo beneficiário, idealmente via WhatsApp ou chat, fornecendo as informações necessárias (CPF, dados a serem atualizados).
+
+Documentação: Após fornecer os dados (Passo 1), o beneficiário deve enviar documentação comprobatória (Passo 2) anexada no chat (ex: comprovante de endereço).
+
+Verificação e Prazo: O setor de Atendimento tem 2 minutos (Passo 3) para conferir os documentos. Se as informações estiverem corretas (Sim), a atualização é realizada via CRM (Passo 4) em 3 minutos.
+
+Correções: Se as informações estiverem incorretas (Não), o Atendimento irá informar o beneficiário (Passo 5) sobre a correção necessária, preferencialmente via WhatsApp.
+
+Plano de Maioridade: A alteração do plano de dependente para titular (Maioridade) é um processo presencial (Nota do Fluxo), iniciado na área de Atendimento, requerendo documentos como RG/CPF e comprovante de matrícula da faculdade (se aplicável).
+
+Status de Maioridade: Após a entrega, os documentos são registrados em planilha Excel (Passo 5) e encaminhados ao Cadastro. Se houver incorreção, o Atendimento será notificado para solicitar os documentos ao cliente (Passo 8) via telefone ou ONCAPP.
+
+Agendamento (App/Web - Tarefa 3): O beneficiário busca vagas via aplicativo/web, podendo filtrar por cidade, especialidade, médico e data. Após visualizar as vagas (Passo 2), ele seleciona o dia, horário e profissional (Passo 3) e confirma os dados (Passo 4).
+
+Agendamento (Canais Alternativos): Se a Porta de Entrada for ligacão telefônica ou WhatsApp, o Atendimento deve entrar em contato (Passo 5), passar as informações necessárias (Passo 6) para o sistema (Nome, Data Nasc., Especialidade, Motivo da consulta), verificar agendas no CRM (Passo 7), e informar o beneficiário (Passo 8) para então reservar a agenda (Passo 10) no CRM.
+
+Dados para Agendamento: Sempre são necessários: Nome completo, data de nascimento, especialidade e motivo da consulta (Passo 6).
+
+Confirmação: O Atendimento (ou o sistema) confirma os dados do agendamento (Passo 9) por texto ou voz, informando dia, horário, médico, endereço e o protocolo da solicitação.
+
+Busca de Vagas: O sistema deve informar dias e horários disponíveis no prazo de 1 mês.
+
+Autorização de Exames: A solicitação de autorização é feita via upload de arquivo (PDF/imagem) e é processada por OCR para extração de dados. A necessidade de auditoria é verificada com base no Rol de Procedimentos oficial.
+
+Resultado de Autorização: Se Não houver necessidade de auditoria, a autorização é automática. Se Sim, o sistema informa o prazo estimado de retorno (visando redução de 21 dias para um tempo menor, ex: 48h) e envia a autorização final após a aprovação da auditoria.
+
+
+Início do Processo: O cliente entra em contato para solicitar dados referentes à cobrança (Passo 1). O processo pode ser realizado presencialmente, via e-mail ou ONCAPP (Nota).
+
+Documentos Necessários: Para registro, o Atendimento solicita o boleto e informações sobre qual procedimento é indevido e a competência da cobrança. Para comprovação, o paciente deve enviar um comprovante de realização do procedimento (via e-mail ou ONCAPP).
+
+Registro: O Atendimento deve registrar o atendimento (Passo 2) e fornecer o protocolo para o paciente (Passo 3) para acompanhamento.
+
+Análise: Os dados são enviados via e-mail para as contas médicas (Passo 4) para aguardar o retorno sobre a cobrança.
+
+Resultado e Desconto: Se a Cobrança for indevida (Sim), o Atendimento deve perguntar qual a forma de desconto (Passo 6): Fatura atual ou Fatura futura.
+
+Procedimento de Estorno: Se for Fatura atual (Passo 7), o Atendimento solicita presencialmente na tesouraria. Se for Fatura futura (Passo 8), o Atendimento informa o financeiro (Passo 8), encaminhando os dados e a forma de desconto.
+
+Cobrança Válida: Se a Cobrança for válida (Não), o Atendimento deve enviar o comprovante ao paciente (Passo 5) por texto ou verbalmente.
+
+
+Rol de Procedimentos: É a lista obrigatória de exames e tratamentos que todos os planos de saúde devem cobrir, conforme a ANS. A cobertura do seu plano segue estritamente este Rol.
+
+Carências: Períodos de espera que você deve cumprir para ter acesso a determinados serviços. Exemplo: Urgência/Emergência em 24h; Parto a Termo em 300 dias.
+
+Atendimento de Urgência: Casos de Urgência e Emergência são atendidos conforme a carência máxima de 24 horas após a contratação do plano.
+
+Os documentos são rg, cpf, comprovante de matrícula da faculdade e frequência
