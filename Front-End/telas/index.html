@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/Front-End/styles/style.css" />
+    <title>Home</title>
+  </head>
+  <body>
+    <div class="global">
+      <nav class="nav-global">
+        <div class="login-cadastro">
+          <button id="login">
+            <a href="login.html">Login</a>
+          </button>
+          <button id="cadastro">
+            <a href="cadastro.html">Cadastro</a>
+          </button>
+        </div>
+      </nav>
+      <div class="container">
+        <h1>AutoMed</h1>
+        <div class="chat">
+          <div id="resposta"></div>
+          <div class="chat-input">
+            <input
+              type="text"
+              id="question"
+              placeholder="Digite sua dúvida..."
+              onkeydown="if(event.key === 'Enter') enviarPergunta()"
+            />
+            <button class="enviar-btn" onclick="enviarPergunta()">
+              Enviar
+            </button>
+          </div>
+        </div>
+        <div class="botoes">
+          <button id="autorizacao">Autorização de exame</button>
+          <button id="agendamento">Agendar Consulta</button>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script src="/Front-End/scripts/script.js"></script>
+</html>

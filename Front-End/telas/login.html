@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/Front-End/styles/style.css" />
+    <title>Login</title>
+  </head>
+  <body>
+    <div class="container">
+      <form id="form-login">
+        <h1>Login</h1>
+        <input type="text" class="email" placeholder="E-mail" id="loginEmail" />
+        <input
+          type="password"
+          class="senha"
+          placeholder="Senha"
+          id="loginSenha"
+        />
+        <span class="span-require"></span>
+        <button type="submit" onclick="checaLogin()">Entrar</button>
+        <button type="button" class="cadastro">
+          <a href="cadastro.html">Cadastrar</a>
+        </button>
+      </form>
+    </div>
+  </body>
+  <script src="/Front-End/scripts/login.js"></script>
+</html>
