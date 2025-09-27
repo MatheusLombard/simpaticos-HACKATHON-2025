@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/Front-End/styles/style.css" />
+    <title>Cadastro</title>
+  </head>
+  <body>
+    <div class="container">
+      <form id="form-cadastro">
+        <h1>cadastro</h1>
+        <input type="text" class="nome require" placeholder="Nome" id="nome" />
+        <span class="span-require"></span>
+        <input type="text" class="cpf require" placeholder="CPF" id="cpf" />
+        <span id="cpf-incorreto"></span>
+        <input type="date" class="dataNasc require" id="dataNasc" />
+        <label>Data de Nascimento</label>
+        <span class="span-require"></span>
+        <input
+          type="text"
+          class="email require"
+          placeholder="E-mail"
+          id="email"
+        />
+        <span class="span-require"></span>
+        <input
+          type="text"
+          class="telefone require"
+          placeholder="Telefone"
+          id="telefone"
+        />
+        <span class="span-require"></span>
+        <input type="text" class="cep require" placeholder="CEP" id="cep" />
+        <span class="span-require"></span>
+        <input
+          type="text"
+          class="logradouro require"
+          placeholder="Logradouro"
+          id="logradouro"
+        />
+        <span class="span-require"></span>
+        <input
+          type="text"
+          class="numero require"
+          placeholder="Numero"
+          id="numero"
+        />
+        <span class="span-require"></span>
+        <input
+          type="text"
+          class="bairro require"
+          placeholder="Bairro"
+          id="bairro"
+        />
+        <span class="span-require"></span>
+        <input
+          type="text"
+          class="cidade require"
+          placeholder="Cidade"
+          id="cidade"
+        />
+        <span class="span-require"></span>
+        <input
+          type="text"
+          class="uf require"
+          placeholder="UF"
+          id="uf"
+          id="uf"
+        />
+        <span class="span-require"></span>
+        <input
+          type="password"
+          class="senha require"
+          placeholder="Senha"
+          id="senha"
+        />
+        <span class="span-require"></span>
+        <input
+          type="password"
+          class="confirma-senha require"
+          placeholder="Confirme a senha"
+          id="confirmaSenha"
+        />
+        <span class="span-require"></span>
+        <button type="submit" onclick="checaCadastro()">Cadastrar</button>
+        <button type="button" class="cadastro">
+          <a href="login.html">Login</a>
+        </button>
+      </form>
+    </div>
+  </body>
+  <script src="/Front-End/scripts/script.js"></script>
+  <script src="/Front-End/scripts/cadastro.js"></script>
+</html>
