@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/Front-End/styles/style.css" />
+    <link rel="stylesheet" href="../styles/style.css" />
     <title>Home</title>
   </head>
   <body>
@@ -18,7 +18,7 @@
           </button>
         </div>
       </nav>
-      <div class="container">
+      <div class="container container-home">
         <h1>AutoMed</h1>
         <div class="chat">
           <div id="resposta"></div>
@@ -38,12 +38,14 @@
           <button id="autorizacao" onclick="chatAuditoria()">
             Autorização de exame
           </button>
-          <button id="agendamento">Agendar Consulta</button>
+          <button id="agendamento" onclick="consultaAgenda()">
+            Agendar Consulta
+          </button>
         </div>
       </div>
     </div>
   </body>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/tesseract.js@4.0.2/dist/tesseract.min.js"></script>
-  <script src="/Front-End/scripts/script.js"></script>
+  <script src="../scripts/script.js"></script>
 </html>

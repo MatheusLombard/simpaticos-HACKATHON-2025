@@ -29,7 +29,9 @@ document.getElementById("form-login").addEventListener("submit", function (e) {
     .then((data) => {
       console.log(data[0]);
       if (data[0].USUARIO_ID > 0) {
-        window.location.href = "/Front-End/telas/index.html";
+        // Salva o ID do usuário no localStorage
+        localStorage.setItem("userId", data[0].USUARIO_ID);
+        window.location.href = "../telas/index.html";
         console.log("Login Efetuado");
       } else {
         alert("Usuario nao encontrado");
@@ -42,3 +44,9 @@ document.getElementById("form-login").addEventListener("submit", function (e) {
       console.log(teste);
     });
 });
+
+function teste(id) {
+  return id;
+}
+
+// ...existing code...

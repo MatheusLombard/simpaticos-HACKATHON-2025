@@ -133,3 +133,214 @@ Rol de Procedimentos: é a lista obrigatória da ANS que define os exames e trat
 Carências: prazos de espera obrigatórios após contratação do plano (ex.: urgência/emergência em 24h, parto a termo em 300 dias).
 
 Atendimento de Urgência: todo caso de urgência deve ser atendido após 24h da contratação, mesmo que outras carências ainda estejam em vigor.
+
+Fluxo 1: Segunda Via de Boleto
+Este fluxo é realizado pelo Beneficiário e pode ser feito via Site ou Aplicativo.
+
+1. Acessar plataforma: O Beneficiário realiza esta tarefa, fazendo login no App ou Site.
+
+2. Selecionar menu financeiro: O Beneficiário navega pela plataforma.
+
+3. Selecionar a competência que deseja: O Beneficiário navega pela plataforma.
+
+4. Clicar em impressão 2a via: O Beneficiário navega pela plataforma para finalizar o processo.
+
+Nota: O tempo estimado para cada etapa é de 1 minuto.
+
+Fluxo 2: Plano de Maioridade
+Este é um processo realizado presencialmente pelo Cliente solicitante e envolve diversos atores do Atendimento e Cadastro.
+
+1. Solicitar documentos: O ator é o Atendimento.
+
+2. Tirar cópia dos documentos: O ator é o Atendimento, utilizando uma Fotocopiadora.
+
+3. Registrar atendimento: O ator é o Atendimento, utilizando o sistema No. ERP Solus.
+
+4. Entregar protocolo: O ator é o Atendimento, entregando Uma via em papel físico.
+
+5. Registrar documento planilha de excel: O ator é o Atendimento, seguindo a Sequência de protocolos.
+
+6. Levar documentos para o cadastro: O ator é o Atendimento, fazendo-o Pessoalmente.
+
+Gateway (Decisão): Todos os documentos corretos?
+
+SIM: O processo é finalizado.
+
+NÃO: Seguem as etapas:
+
+7. Informar o atendimento: O ator é o Cadastro, informando quais documentos precisam de correção.
+
+8. Solicitar documentos ao cliente: O ator é o Atendimento, fazendo-o Via telefone e oncap (provavelmente whatsapp).
+
+O processo finaliza com a ação "Aguardar o beneficiário".
+
+Fluxo 3: Atualização Cadastral
+Este processo é iniciado pelo Beneficiário via Whatsapp e envolve o Atendimento.
+
+1. Fornecer as informações necessárias: O ator é o Beneficiário, fornecendo CPF, dados a serem atualizados (dados pessoais ou endereço).
+
+2. Enviar documentação comprobatória: O ator é o Beneficiário, enviando por Anexar.
+
+Aguardar atendimento.
+
+3. Verificar informações: O ator é o Atendimento, conferindo os documentos.
+
+Gateway (Decisão): Informações corretas?
+
+SIM: Segue a etapa:
+
+4. Realizar atualização: O ator é o Atendimento, realizando-a Via CRM. O processo é finalizado.
+
+NÃO: Segue a etapa:
+
+5. Informar beneficiário: O ator é o Atendimento, fazendo-o Via whatsapp. O processo é finalizado.
+
+Notas: Os tempos variam de 1 a 3 minutos por etapa.
+
+Fluxo 4: Troca de Titularidade
+Este processo é realizado presencialmente pelo Cliente solicita a troca e envolve o Titular atual e futuro. Envolve os atores Atendimento e Cliente.
+
+1. Solicitar os documentos: O ator é o Atendimento.
+
+2. Imprimir documento padrão: O ator é o Atendimento, com Acesso a pasta servidor.
+
+3. Assinar documento padrão: O ator é o Cliente, sendo necessária a assinatura de ambos os titulares (atual e futuro).
+
+4. Tirar cópia dos documentos: O ator é o Atendimento, utilizando a Fotocopiadora.
+
+5. Registrar atendimento: O ator é o Atendimento, utilizando o sistema No ERP Solus.
+
+6. Entregar protocolo: O ator é o Atendimento, entregando Uma via em papel físico.
+
+7. Registrar documentos na planilha no excel: O ator é o Atendimento, seguindo a Sequência de protocolos.
+
+8. Levar documentos para o cadastro: O ator é o Atendimento, fazendo-o Pessoalmente.
+
+Gateway (Decisão): Todos os documentos corretos?
+
+SIM: Segue a etapa:
+
+10. Solicitar ao cliente: O ator é o Atendimento. O processo finaliza com a ação "Aguardar o beneficiário".
+
+NÃO: Segue a etapa:
+
+9. Informar o atendimento: O ator é o Cadastro, informando quais documentos precisam de correção.
+
+Fluxo 5: Cobrança Indevida
+Este processo é iniciado pelo Cliente entra em contato e pode ser realizado presencialmente, via e-mail ou oncap (provavelmente whatsapp). Envolve apenas o ator Atendimento.
+
+1. Solicitar dados referente a cobrança: O ator é o Atendimento.
+
+2. Registrar atendimento: O ator é o Atendimento, informando boleto e o beneficiário e competência da cobrança.
+
+3. Fornecer protocolo para o paciente: O ator é o Atendimento, comunicando verbalmente ou via texto.
+
+4. Enviar dados via e-mail para o contas médicas: O ator é o Atendimento, enviando Via texto.
+
+Aguardar retorno do contas médicas.
+
+Gateway (Decisão): Cobrança indevida?
+
+NÃO: Segue a etapa:
+
+5. Enviar comprovante ao paciente: O ator é o Atendimento, enviando Comprovante de realização do procedimento, via e-mail ou oncap (provavelmente whatsapp). O processo é finalizado.
+
+SIM: Segue a etapa:
+
+6. Perguntar qual forma de desconto: O ator é o Atendimento, entrando em contato com o cliente, boleto atual ou futuro.
+
+Gateway (Decisão): Forma de desconto desejada?
+
+Fatura atual: Segue a etapa:
+
+7. Solicitar vir presencial na tesouraria: O ator é o Atendimento.
+
+Fatura futura: Segue a etapa:
+
+8. Informar ao financeiro: O ator é o Atendimento, Encaminhando o e-mail do contas médicas e informando forma de desconto.
+
+Ambos os caminhos (7 e 8) levam ao fim do processo.
+
+Fluxo 6: Agendamento de Consultas
+Este fluxo possui duas portas de entrada: Aplicativo (realizado pelo Beneficiário) ou Uniagende (iniciado pelo Paciente precisa agendar uma consulta, com a intervenção do Atendimento para o agendamento assistido).
+
+Caminho 1: Via Aplicativo (Beneficiário)
+
+1. Buscar agenda disponível: O ator é o Beneficiário, filtrando cidade, especialidade, médico (opcional) e data.
+
+2. Visualizar vagas disponíveis: O ator é o Beneficiário, via Aplicativo.
+
+3. Reservar a agenda: O ator é o Beneficiário, selecionando Dia, horário e profissional de preferência.
+
+4. Confirmar dados do agendamento: O ator é o Beneficiário. O processo é finalizado.
+
+Caminho 2: Porta de Entrada Uniagende (Assistido)
+
+5. Entrar em contato: O ator é o Beneficiário, via whatsapp ou ligação telefônica.
+
+Aguardar ser atendido.
+
+6. Passar as informações necessárias: O ator é o Beneficiário, fornecendo via texto ou voz: Nome Completo, data de nascimento, especialidade e motivo da consulta.
+
+7. Verificar agendas disponíveis: O ator é o Atendimento, consultando Via CRM.
+
+8. Informar ao beneficiário: O ator é o Atendimento, via texto ou voz.
+
+9. Confirmar dados do agendamento: O ator é o Atendimento, informando dia, horário, médico, endereço e protocolo da solicitação.
+
+10. Reservar agenda: O ator é o Atendimento, realizando-o Via CRM. O processo é finalizado.
+
+Nota: O tempo estimado para cada etapa é de 1 a 3 minutos.
+
+Fluxo 7: Solicitação de Autorização
+Este processo é iniciado pelo Beneficiário via Whatsapp ou Presencialmente e envolve os atores Beneficiário e Atendimento.
+
+1. Fornecer as informações necessárias: O ator é o Beneficiário, via texto, nome completo, data de nascimento e foto do pedido médico.
+
+Aguardar ser atendido.
+
+2. Registrar atendimento: O ator é o Atendimento, informando Via CRM, nome do beneficiário, médico solicitante, cód. procedimento.
+
+Gateway (Decisão): Auditoria?
+
+SIM: Segue a etapa:
+
+3. Informar ao beneficiário: O ator é o Atendimento, comunicando o Número do protocolo da solicitação, prazos de retorno (10 dias se OPME, 3 dias demais).
+
+4. Monitorar status guia: O ator é o Beneficiário, via aplicativo, ligação ou whatsapp.
+
+Subprocesso: Processo Auditoria.
+
+Gateway (Decisão): Procedimento tem cobertura?
+
+SIM: Segue a etapa:
+
+5. Informar ao beneficiário: O ator é o Atendimento, informando o Número do protocolo e da guia. O processo é finalizado.
+
+NÃO: Segue a etapa:
+
+6. Informar ao beneficiário: O ator é o Atendimento, informando Número do protocolo e motivo de negativa. O processo é finalizado.
+
+NÃO: Segue o Gateway (Decisão): Procedimento tem cobertura? (o mesmo do SIM, pulando a auditoria).
+
+SIM: Segue a etapa 5. Informar ao beneficiário.
+
+NÃO: Segue a etapa 6. Informar ao beneficiário.
+
+Nota: O tempo estimado para cada etapa é de 1 a 3 minutos.
+
+Fluxo Extra (Não Associado a uma Tarefa Direta do Chatbot): Fluxo de Maioridade
+O fluxograma do Plano de Maioridade foi incluído para referência, detalhando um processo que é realizado presencialmente. Embora não seja explicitamente citado na Tarefa 1, ele é um dos 7 fluxogramas institucionais que a IA deve utilizar como base de contexto.
+
+Regulamento do Hackathon (Informações Adicionais Relevantes)
+Além dos fluxogramas, é importante que a IA saiba sobre a estrutura da competição:
+
+Tema: Inovação Tecnológica em Saúde Suplementar.
+
+Tarefa 1 (Chatbot): O objetivo é criar um chatbot web que use um Modelo de Linguagem em Grande Escala (LLM) (pronto, via API, ou próprio) para responder dúvidas dos beneficiários com base nos 7 fluxogramas institucionais. A solução deve permitir adicionar ou atualizar o conteúdo de contexto. O chatbot será testado com perguntas previamente definidas e duas perguntas adicionais não reveladas pela comissão durante o Pitch.
+
+Artefatos de Software Obrigatórios: Business Model Canvas, Diagrama de Caso de Uso (UML), Diagrama BPMN e DER (Diagrama Entidade-Relacionamento). A entrega desses artefatos tem caráter eliminatório.
+
+Atuação: As equipes devem manter o repositório no GitHub atualizado a cada 2 horas, a partir das 18h00 do sábado.
+
+Critérios de Avaliação: Incluem cumprimento da implementação do software, Criatividade e Inovação, Resolução dos problemas e melhora da experiência do usuário, Qualidade da entrega e atendimento aos requisitos de segurança de dados.    

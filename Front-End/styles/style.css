@@ -1,3 +1,35 @@
+/* Estilos para separar perguntas do usuário e respostas do bot */
+.mensagem {
+  padding: 10px;
+  margin: 8px 0;
+  border-radius: 8px;
+  max-width: 70%;
+  word-break: break-word;
+  font-size: 1rem;
+}
+
+.usuario {
+  background-color: #e0f7fa;
+  color: #006064;
+  align-self: flex-end;
+  text-align: right;
+    border: 2px solid rgb(17, 17, 52);
+}
+
+.bot {
+  background-color: #f1f8e9;
+  color: #33691e;
+  align-self: flex-start;
+  text-align: left;
+  border: .5px solid #1b450b;
+}
+
+#resposta {
+  display: flex;
+  flex-direction: column;
+  border: .5px solid #000000;
+
+}
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
 * {
   margin: 0;
@@ -20,7 +52,6 @@ body {
   background: var(--cor-fundo);
   color: var(--cor-texto);
   min-height: 100vh;
-  height: 100%;
   width: 100%;
   display: flex;
   justify-content: center;
@@ -29,27 +60,32 @@ body {
 }
 
 .global {
-  margin-top: 20px;
   width: 100vw;
   height: 100vh; /* <- tela inteira */
+  margin-bottom: 20px;
 }
 /* ==================== */
 /* Container principal */
 /* ==================== */
 
 .container {
-  width: 100vw;
-  height: 100vh;
+  width: 50%;
   background: #fff;
   padding: 2rem 1.5rem;
   border-radius: 1rem;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-  display: flex;
+  display: flex;      
   flex-direction: column;
   gap: 1.5rem;
   margin-top: 10px;
+  border: 1px solid black;
 }
+.container-home{
+  width: 60%;
+  justify-self: center;
+  text-align: center;
 
+}
 /* ==================== */
 /* NAV - Botões Login/Cadastro */
 /* ==================== */
@@ -88,8 +124,9 @@ body {
 /* ==================== */
 h1 {
   text-align: center;
-  font-size: 1.8rem;
+  font-size: 3rem;
   color: var(--cor-primaria);
+  text-transform: uppercase;
 }
 
 .chat {
@@ -103,12 +140,13 @@ h1 {
 
 #resposta {
   min-height: 300px;
-  background: var(--cor-accent);
+  background: #dbdad92d;
   padding: 1rem;
   border-radius: 0.5rem;
   overflow-y: auto;
   color: var(--cor-texto-claro);
   font-size: 1rem;
+  
 }
 
 /* Campo de input + botão lado a lado */
@@ -126,6 +164,7 @@ h1 {
   font-size: 1rem;
   background: #fff;
   color: var(--cor-destaque);
+
 }
 
 #question:focus {
@@ -155,6 +194,11 @@ h1 {
   display: flex;
   flex-direction: column;
   gap: 0.8rem;
+}
+p.alerta{
+  background-color: #000000;
+  border-radius: 30px;
+  padding: 10px;
 }
 
 .botoes button {

@@ -50,4 +50,35 @@ router.post('/agendamentos', async (req, res) => {
     }
 });
 
+router.post('/getAgendamentos', async (req, res) => {
+    const { medico_id, data} = req.body;
+
+    const dataDia = data.split(' ')[0];
+    const horaInicioExpediente = 8;
+    const horaFimExpediente = 18;
+    const duracaoConsultaHoras = 1;
+
+    // Gerar todos os horários possíveis para o dia
+    const todosOsHorarios = [];
+    for (let hora = horaInicioExpediente; hora < horaFimExpediente; hora += duracaoConsultaHoras) {
+        const horario = `${dataDia} ${String(hora).padStart(2, '0')}:00`;
+        todosOsHorarios.push(horario);
+    }
+
+    try {
+        // Consulta horários ocupados para o dia
+        const resHorarios = await scriptAgendamento.horariosOcupados(medico_id, dataDia);
+        const horariosOcupados = resHorarios.map(ag => ag.horario_agendado);
+
+        const horariosDisponiveis = todosOsHorarios.filter(horario => {
+            return !horariosOcupados.includes(horario);
+        });
+
+        res.status(200).json({ horariosDisponiveis });
+    } catch (error) {
+        res.status(500).json({ erro: error.message });
+    }
+
+});
+
 module.exports = router

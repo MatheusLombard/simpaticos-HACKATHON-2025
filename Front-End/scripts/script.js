@@ -1,4 +1,7 @@
 let chatState = "normal"; // valores: "normal", "aguardando-exame", "aguardando-procedimento"
+let aguardandoEspecialidade = false;
+let especialidadeEscolhida = "";
+const userId = localStorage.getItem("userId");
 const formCadastro = document.getElementById("form-cadastro");
 const campos = document.querySelectorAll(".require");
 const spans = document.querySelectorAll(".span-require");
@@ -115,8 +118,6 @@ campos[12].addEventListener("input", () => {
 //     console.error("Erro ao buscar o CEP: ", error);
 //   });
 
-// ...existing code...
-
 async function enviarPergunta() {
   const questionInput = document.getElementById("question");
   const question = questionInput.value.trim();
@@ -124,15 +125,14 @@ async function enviarPergunta() {
 
   if (!question) {
     const aviso = document.createElement("p");
+    aviso.setAttribute("class", "alerta");
     aviso.innerText = "Por favor, digite uma pergunta.";
     resposta.appendChild(aviso);
     return;
   }
-
   // Se o chat está aguardando resposta para exame ou procedimento, não envia para IA
   if (chatState === "aguardando-exame") {
     if (question.toLowerCase() === "exame") {
-      chatState = "normal";
       fluxoExame();
       questionInput.value = "";
       return;
@@ -148,10 +148,20 @@ async function enviarPergunta() {
     }
   }
 
+  // Se o chat está no fluxo de agendamento, exibe a mensagem do usuário e não envia para IA
+  if (chatState === "agendamento") {
+    const perguntaEl = document.createElement("div");
+    perguntaEl.classList.add("mensagem", "usuario");
+    perguntaEl.textContent = question;
+    resposta.appendChild(perguntaEl);
+    handleAgendamentoPergunta(question, questionInput);
+    return;
+  }
+
   // Fluxo normal: envia para IA
   const perguntaEl = document.createElement("div");
   perguntaEl.classList.add("mensagem", "usuario");
-  perguntaEl.textContent = "Você: " + question;
+  perguntaEl.textContent = question;
   resposta.appendChild(perguntaEl);
   questionInput.value = "";
 
@@ -167,8 +177,7 @@ async function enviarPergunta() {
     const data = await res.json();
     const respostaEl = document.createElement("div");
     respostaEl.classList.add("mensagem", "bot");
-    respostaEl.textContent =
-      "AutoMed: " + (data.response || "Sem resposta da IA.");
+    respostaEl.textContent = data.response || "Sem resposta da IA.";
     resposta.appendChild(respostaEl);
     resposta.scrollTop = resposta.scrollHeight;
   } catch (err) {
@@ -184,8 +193,10 @@ function respostaChat(texto) {
   const resposta = document.getElementById("resposta"); // container do chat
   const respostaEl = document.createElement("div");
   respostaEl.classList.add("mensagem", "bot");
-  respostaEl.textContent = "AutoMed: " + texto;
+  respostaEl.textContent = texto;
   resposta.appendChild(respostaEl);
+  // Scroll automático para o final do chat
+  resposta.scrollTop = resposta.scrollHeight;
 }
 
 function chatAuditoria() {
@@ -233,7 +244,7 @@ function fluxoExame() {
       return;
     }
     let respostaBot = "Recebemos seu exame. Logo teremos os resultados.";
-
+    aviso.remove();
     inputContainer.remove();
 
     // Mostra resposta do bot no chat
@@ -326,6 +337,7 @@ function fluxoExame() {
       console.log("Erro ao ler o PDF: " + err.message);
     }
   });
+  chatState = "normal";
 }
 
 function fluxoProcedimento() {
@@ -368,7 +380,7 @@ function fluxoProcedimento() {
     }
 
     let respostaBot = "Recebemos seu exame. Logo teremos os resultados.";
-
+    aviso.remove();
     inputContainer.remove();
 
     // Mostra resposta do bot no chat
@@ -447,6 +459,7 @@ function fluxoProcedimento() {
       }
       const examesTexto = exames.join(", ");
       //statusDiv.textContent = "Enviando exames para o backend...";
+      console.log(examesTexto);
       fetch(
         "https://semidiurnal-undespondently-gertie.ngrok-free.dev/autorizacao",
         {
@@ -495,3 +508,231 @@ function fluxoProcedimento() {
     }
   });
 }
+
+// --- INÍCIO DO FLUXO DE AGENDAMENTO ---
+
+function consultaAgenda() {
+  chatState = "agendamento";
+  aguardandoEspecialidade = true;
+  window.medicosDisponiveis = undefined;
+  window.medicoSelecionado = undefined;
+  window.horariosDisponiveis = undefined;
+  window.agendamentoFinalizado = false;
+  iniciarAgendamento();
+}
+
+function iniciarAgendamento() {
+  if (!userId) {
+    respostaChat("Usuário não identificado. Faça login novamente.");
+    return;
+  }
+  respostaChat("Qual especialidade você deseja para a consulta?");
+  aguardandoEspecialidade = true;
+}
+
+async function receberEspecialidade(especialidade) {
+  especialidadeEscolhida = especialidade;
+  aguardandoEspecialidade = false;
+  // Garante que o chat continue barrando a IA até o fim do agendamento
+  chatState = "agendamento";
+  await buscarMedicosPorRegiaoEEspecialidade(especialidadeEscolhida);
+}
+
+async function buscarMedicosPorRegiaoEEspecialidade(especialidade) {
+  respostaChat(`Buscando médicos de ${especialidade} na sua região...`);
+  try {
+    const res = await fetch(
+      "https://semidiurnal-undespondently-gertie.ngrok-free.dev/medicos",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          usuario_id: userId,
+          especialidades: especialidade,
+        }),
+      }
+    );
+    const medicos = await res.json();
+    if (!Array.isArray(medicos) || medicos.length === 0) {
+      respostaChat(
+        "Nenhum médico encontrado para essa especialidade na sua região."
+      );
+      return;
+    }
+    respostaChat("Escolha um dos médicos abaixo, digitando o nome ou ID:");
+    medicos.forEach((med) => {
+      respostaChat(
+        `ID: ${med.MEDICO_ID} | Nome: ${med.NOME} | Especialidade: ${med.ESPECIALIDADE}`
+      );
+    });
+    window.medicosDisponiveis = medicos;
+  } catch (err) {
+    respostaChat("Erro ao buscar médicos: " + err.message);
+  }
+}
+
+async function escolherMedico(medicoEscolhido) {
+  // Salva a data selecionada para uso posterior
+  window.dataSelecionadaAgendamento = null;
+  const medicos = window.medicosDisponiveis || [];
+  const medico = medicos.find(
+    (m) =>
+      m.MEDICO_ID == medicoEscolhido ||
+      m.NOME.toLowerCase() === medicoEscolhido.toLowerCase()
+  );
+  if (!medico) {
+    respostaChat("Médico não encontrado. Tente novamente.");
+    return;
+  }
+  window.medicoSelecionado = medico;
+  // Exibe campo para o usuário escolher a data (ano, mês, dia)
+  const resposta = document.getElementById("resposta");
+  const inputContainer = document.createElement("div");
+  inputContainer.classList.add("input", "bot");
+  const label = document.createElement("label");
+  label.textContent = `Escolha o dia para consultar com Dr(a). ${medico.NOME}: `;
+  label.style.marginRight = "10px";
+  const inputDate = document.createElement("input");
+  inputDate.type = "date";
+  inputDate.id = "dataConsulta";
+  inputDate.style.marginRight = "10px";
+  const btnEnviar = document.createElement("button");
+  btnEnviar.textContent = "Buscar horários";
+  btnEnviar.onclick = async () => {
+    const dataSelecionada = inputDate.value;
+    if (!dataSelecionada) {
+      respostaChat("Por favor, selecione uma data.");
+      return;
+    }
+    respostaChat(
+      `Buscando horários disponíveis para o dia ${dataSelecionada}...`
+    );
+    inputContainer.remove();
+    window.dataSelecionadaAgendamento = dataSelecionada;
+    try {
+      const res = await fetch(
+        "https://semidiurnal-undespondently-gertie.ngrok-free.dev/getAgendamentos",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            medico_id: medico.MEDICO_ID,
+            data: dataSelecionada,
+          }),
+        }
+      );
+      const horariosJson = await res.json();
+      let horarios = [];
+      if (Array.isArray(horariosJson)) {
+        horarios = horariosJson;
+      } else if (
+        horariosJson &&
+        Array.isArray(horariosJson.horariosDisponiveis)
+      ) {
+        horarios = horariosJson.horariosDisponiveis;
+      }
+      if (!Array.isArray(horarios) || horarios.length === 0) {
+        respostaChat("Nenhum horário disponível para este médico neste dia.");
+        return;
+      }
+      respostaChat("Escolha um horário disponível:");
+      horarios.forEach((h) => {
+        // Se for string tipo '2025-09-28 08:00', mostra só a hora
+        let hora = h;
+        if (typeof h === "string" && h.includes(" ")) {
+          hora = h.split(" ")[1];
+        }
+        respostaChat(`Horário: ${hora}`);
+      });
+      window.horariosDisponiveis = horarios;
+    } catch (err) {
+      respostaChat("Erro ao buscar horários: " + err.message);
+    }
+  };
+  inputContainer.appendChild(label);
+  inputContainer.appendChild(inputDate);
+  inputContainer.appendChild(btnEnviar);
+  resposta.appendChild(inputContainer);
+}
+
+async function agendarConsulta(dia, horario) {
+  const medico = window.medicoSelecionado;
+  if (!medico) {
+    respostaChat("Selecione um médico antes de agendar.");
+    return;
+  }
+  respostaChat(
+    `Agendando consulta para o dia ${dia} às ${horario} com Dr(a). ${medico.NOME}...`
+  );
+  console.log(`${dia} ${horario}`);
+  try {
+    const res = await fetch(
+      "https://semidiurnal-undespondently-gertie.ngrok-free.dev/agendamentos",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          usuario_id: userId,
+          medico_id: medico.MEDICO_ID,
+          data: `${dia} ${horario}`,
+        }),
+      }
+    )
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Erro na resposta do servidor");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log("Resposta do agendamento:", data.mensagem);
+        respostaChat(data.mensagem || "Agendamento realizado com sucesso!");
+        // if (data.status === 1) {
+        //   respostaChat("Agendamento realizado com sucesso!");
+        // } else {
+        //   respostaChat("Não foi possível agendar. Tente novamente.");
+        // }
+      });
+    //const resultado = await res.json();
+  } catch (err) {
+    respostaChat("Erro ao agendar: " + err.message);
+  }
+}
+
+// Função central para controlar o fluxo de perguntas do agendamento
+function handleAgendamentoPergunta(question, questionInput) {
+  if (aguardandoEspecialidade) {
+    receberEspecialidade(question);
+    questionInput.value = "";
+    return;
+  }
+  if (window.medicosDisponiveis && !window.medicoSelecionado) {
+    escolherMedico(question);
+    questionInput.value = "";
+    return;
+  }
+  if (
+    window.horariosDisponiveis &&
+    window.medicoSelecionado &&
+    !window.agendamentoFinalizado
+  ) {
+    // Permite que o usuário responda apenas com o horário (hh:mm)
+    const horario = question.trim();
+    const dia = window.dataSelecionadaAgendamento;
+    if (horario && dia) {
+      agendarConsulta(dia, horario).then(() => {
+        window.agendamentoFinalizado = true;
+        chatState = "normal";
+      });
+    } else {
+      respostaChat(
+        "Por favor, selecione um horário válido clicando em um dos horários disponíveis."
+      );
+    }
+    questionInput.value = "";
+    return;
+  }
+  // Se chegou aqui, aguarda próximo passo do fluxo
+  return;
+}
+// --- FIM DO FLUXO DE AGENDAMENTO ---
