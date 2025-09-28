@@ -47,3 +47,89 @@ Carências: Períodos de espera que você deve cumprir para ter acesso a determi
 Atendimento de Urgência: Casos de Urgência e Emergência são atendidos conforme a carência máxima de 24 horas após a contratação do plano.
 
 Os documentos são rg, cpf, comprovante de matrícula da faculdade e frequência
+
+- Agendamento de Consultas
+
+O beneficiário pode agendar consultas de duas formas: pelo aplicativo/web (Uniagende) ou por canais alternativos como WhatsApp e ligação telefônica.
+
+No app/web, o paciente informa: cidade, especialidade, médico (opcional) e data. O sistema retorna as vagas disponíveis dentro de um prazo de até 1 mês.
+
+Caso existam vagas, o beneficiário seleciona dia, horário e profissional. O sistema gera um protocolo de agendamento com informações do médico, endereço e horário.
+
+Nos canais alternativos, o atendente humano coleta informações como: nome, data de nascimento, especialidade e motivo da consulta. Essas informações são inseridas no CRM para verificar agendas.
+
+O atendente confirma os dados com o beneficiário por texto ou voz e efetua a reserva no CRM, também gerando protocolo.
+
+Se não houver vagas no período de 1 mês, o sistema apenas informa indisponibilidade.
+
+- Atualização Cadastral
+
+A atualização de dados pessoais é iniciada pelo beneficiário via WhatsApp ou chat.
+
+O cliente informa o CPF e os dados a serem atualizados (como endereço ou telefone).
+
+Em seguida, envia documentação comprobatória (exemplo: comprovante de endereço).
+
+O setor de Atendimento confere os documentos em até 2 minutos.
+
+Se estiver tudo correto, o cadastro é atualizado no CRM em até 3 minutos.
+
+Caso haja erro, o atendente informa o beneficiário sobre a necessidade de correção, preferencialmente via WhatsApp.
+
+- Cobrança Indevida
+
+O processo pode começar de forma presencial, por e-mail ou via ONCAPP.
+
+O beneficiário deve apresentar:
+
+boleto de cobrança
+
+informações sobre o procedimento cobrado indevidamente
+
+e, se necessário, comprovante de realização do procedimento
+
+O atendente registra o atendimento no ERP, gera protocolo e envia ao paciente.
+
+Os dados são encaminhados ao setor de contas médicas, que avalia a cobrança.
+
+Se a cobrança for válida, o setor envia um comprovante ao paciente, que recebe o retorno por texto ou verbalmente.
+
+Se a cobrança for indevida, o beneficiário escolhe como será o estorno:
+
+Fatura atual: o paciente deve comparecer presencialmente à tesouraria.
+
+Fatura futura: o caso é encaminhado ao setor financeiro, que fará o ajuste no próximo boleto.
+
+- Plano de Maioridade
+
+Quando um dependente atinge a maioridade, deve ser feita a migração de plano para titularidade.
+
+Esse processo é presencial e começa no setor de Atendimento.
+
+São exigidos os seguintes documentos: RG, CPF, comprovante de matrícula da faculdade e declaração de frequência.
+
+O atendente tira cópias, registra o atendimento no sistema ERP Solus, entrega um protocolo em papel e lança o registro em planilha Excel para controle.
+
+Em seguida, os documentos são encaminhados para o setor de Cadastro.
+
+Caso haja erro nos documentos, o Cadastro retorna para o Atendimento, que solicita correção ao beneficiário por telefone ou ONCAPP.
+
+- Autorização de Exames
+
+O beneficiário deve enviar a solicitação de exame em PDF ou imagem.
+
+O sistema utiliza OCR para extrair as informações e verifica se o exame está no Rol de Procedimentos da ANS.
+
+Se não houver necessidade de auditoria, a autorização é emitida automaticamente.
+
+Se houver auditoria, o sistema informa ao paciente o prazo estimado de resposta (meta: reduzir o tempo médio de 21 dias para até 48 horas).
+
+Após aprovação da auditoria, o sistema envia a autorização final ao beneficiário.
+
+- Regras Importantes
+
+Rol de Procedimentos: é a lista obrigatória da ANS que define os exames e tratamentos que os planos de saúde devem cobrir.
+
+Carências: prazos de espera obrigatórios após contratação do plano (ex.: urgência/emergência em 24h, parto a termo em 300 dias).
+
+Atendimento de Urgência: todo caso de urgência deve ser atendido após 24h da contratação, mesmo que outras carências ainda estejam em vigor.
