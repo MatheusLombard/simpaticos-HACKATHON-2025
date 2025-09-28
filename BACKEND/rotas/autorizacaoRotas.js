@@ -1,15 +1,34 @@
-const {Router} = require('express');
+
+const express = require('express');
 const scriptAutorizacao = require('../scripts/scriptAutorizacao');
-const router = Router();
+const router = express.Router();
 
-router.post('/autorizacao', (req, res) => { 
-    const {terminologia} = req.body;
+// Middleware para aceitar texto puro no body
+router.use(express.text());
 
-    const resAutorizacao = scriptAutorizacao.verficar(terminologia)
-    resAutorizacao
-        .then((value) => res.status(200).json(value))
-        .catch((error) => res.status(500).json(error))
 
-})
+router.post('/autorizacao', async (req, res) => {
+    try {
+        // Recebe o texto puro do body
+        const texto = req.body;
+        // Divide o texto em array, separando por vírgula, ponto e vírgula ou quebra de linha
+        const termos = texto.split(/[|;\n]/).map(t => t.trim()).filter(Boolean);
+        // Consulta cada termo no banco
+        const resultados = await Promise.all(
+            termos.map(async termo => {
+                try {
+                    // Chama o scriptAutorizacao para cada termo
+                    const resultado = await scriptAutorizacao.verficar(termo);
+                    return { termo, resultado };
+                } catch (error) {
+                    return { termo, erro: error };
+                }
+            })
+        );
+        res.status(200).json(resultados);
+    } catch (error) {
+        res.status(500).json({ erro: error.message });
+    }
+});
 
 module.exports = router
