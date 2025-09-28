@@ -13,7 +13,7 @@
   color: #006064;
   align-self: flex-end;
   text-align: right;
-    border: 2px solid rgb(17, 17, 52);
+  border: 1px solid rgb(17, 17, 52);
 }
 
 .bot {
@@ -200,7 +200,9 @@ p.alerta{
   border-radius: 30px;
   padding: 10px;
 }
-
+ol{
+  margin-left: 20px;
+}
 .botoes button {
   padding: 0.9rem;
   background: var(--cor-destaque);

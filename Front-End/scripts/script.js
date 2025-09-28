@@ -6,6 +6,37 @@ const formCadastro = document.getElementById("form-cadastro");
 const campos = document.querySelectorAll(".require");
 const spans = document.querySelectorAll(".span-require");
 let i;
+
+const usuarioId = localStorage.getItem('usuario_id');
+if (usuarioId) {
+  console.log('Usuário está logado com ID:', usuarioId);
+  // Esconde botão de login se existir
+  const loginBtn = document.getElementById('login');
+  if (loginBtn) loginBtn.style.display = 'none';
+  // Esconde botão de cadastro se existir
+  const cadastroBtn = document.getElementById('cadastro');
+  if (cadastroBtn) cadastroBtn.style.display = 'none';
+  // Adiciona botão de sair se não existir
+  if (!document.getElementById('logout')) {
+    const sairBtn = document.createElement('button');
+    sairBtn.id = 'logout';
+    sairBtn.textContent = 'Sair';
+    sairBtn.style.marginLeft = '10px';
+    sairBtn.onclick = function() {
+      localStorage.removeItem('usuario_id');
+      window.location.reload();
+    };
+    // Insere o botão sair dentro do .login-cadastro
+    const loginCadastroDiv = document.querySelector('.login-cadastro');
+    if (loginCadastroDiv) {
+      loginCadastroDiv.appendChild(sairBtn);
+    } else {
+      document.body.appendChild(sairBtn);
+    }
+  }
+}
+
+
 function setError(index) {
   campos[index].style.border = "2px solid #e63946";
 }
@@ -174,12 +205,10 @@ async function enviarPergunta() {
         body: JSON.stringify({ question }),
       }
     );
-    const data = await res.json();
-    const respostaEl = document.createElement("div");
-    respostaEl.classList.add("mensagem", "bot");
-    respostaEl.textContent = data.response || "Sem resposta da IA.";
-    resposta.appendChild(respostaEl);
-    resposta.scrollTop = resposta.scrollHeight;
+  const data = await res.json();
+  // Usa a função respostaChat para garantir formatação igual à do chat
+  respostaChat(data.response || "Sem resposta da IA.");
+  console.log('barra fas: ' + data.response);
   } catch (err) {
     console.error("Erro na requisição:", err);
     const erroEl = document.createElement("div");
@@ -193,7 +222,40 @@ function respostaChat(texto) {
   const resposta = document.getElementById("resposta"); // container do chat
   const respostaEl = document.createElement("div");
   respostaEl.classList.add("mensagem", "bot");
-  respostaEl.textContent = texto;
+  // Detecta listas numeradas (1. item) e converte em <ol><li>...</li></ol>
+  let formatado = texto;
+  // Aplica negrito para **texto**
+  formatado = formatado.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+  if (/\d+\.\s/.test(formatado)) {
+    const linhas = formatado.split(/\r?\n/);
+    let lista = [];
+    let outros = [];
+    linhas.forEach(linha => {
+      const match = linha.match(/^\s*(\d+)\.\s+(.*)/);
+      if (match) {
+        lista.push(match[2]);
+      } else {
+        if (lista.length > 1) {
+          outros.push('<ol>' + lista.map(item => `<li>${item}</li>`).join('') + '</ol>');
+          lista = [];
+        } else if (lista.length === 1) {
+          outros.push('1. ' + lista[0]);
+          lista = [];
+        }
+        if (linha.trim()) outros.push(linha);
+      }
+    });
+    if (lista.length > 1) {
+      outros.push('<ol>' + lista.map(item => `<li>${item}</li>`).join('') + '</ol>');
+    } else if (lista.length === 1) {
+      outros.push('&nbsp;1. ' + lista[0]);
+    }
+    formatado = outros.join('<br>');
+  } else {
+    formatado = formatado.replace(/\r\n|\n\n|\r\r/g, '<br><br>');
+    formatado = formatado.replace(/\n|\r/g, '<br>');
+  }
+  respostaEl.innerHTML = formatado;
   resposta.appendChild(respostaEl);
   // Scroll automático para o final do chat
   resposta.scrollTop = resposta.scrollHeight;
@@ -316,10 +378,11 @@ function fluxoExame() {
               if (auditoria == "NÃO") {
                 respostaBot = `Exame: ${element.termo}: Não precisa de auditoria`;
                 respostaChat(respostaBot);
-              } else if (auditoria == "SIM") {
+              } else if (auditoria == "AUDITORIA") {
                 respostaBot = `Exame: ${element.termo}: Precisa de auditoria. Tempo máximo para resposta é de 5 (cinco) dias`;
                 respostaChat(respostaBot);
-              } else {
+              } else{
+                console.log('Elemento:', element.resultado[1].Auditoria);
                 respostaBot = `Exame: ${element.termo}: Precisa de auditoria. Tempo máximo para resposta é de 10 (dez) dias`;
                 respostaChat(respostaBot);
               }
@@ -486,7 +549,7 @@ function fluxoProcedimento() {
               if (auditoria == "NÃO") {
                 respostaBot = `Procedimento: ${element.termo}: Não precisa de auditoria`;
                 respostaChat(respostaBot);
-              } else if (auditoria == "SIM") {
+              } else if (auditoria == "AUDITORIA") {
                 respostaBot = `Procedimento: ${element.termo}: Precisa de auditoria. Tempo máximo para resposta é de 5 (cinco) dias`;
                 respostaChat(respostaBot);
               } else {
@@ -736,3 +799,5 @@ function handleAgendamentoPergunta(question, questionInput) {
   return;
 }
 // --- FIM DO FLUXO DE AGENDAMENTO ---
+
+
